@@ -10,10 +10,11 @@ export class PokemonCardComponent {
   @Input()
   pokemon!: PokemonModel;
 
-
   constructor() { }
 
-  getPokemonImage(): string {
-    return `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${this.pokemon.id}.png`;
+  public getPokemonImageUrl(pokemonUrl: string): string {
+    const id = pokemonUrl.split("/").at(-2);
+    const formattedId = id?.padStart(3, "0")
+    return `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${formattedId}.png`;
   }
 }

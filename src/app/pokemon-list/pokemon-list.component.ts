@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { PokemonModel } from "../models";
+import { PokemonService } from '../services/pokemon.service';
 
 @Component({
   selector: 'pokemon-list',
@@ -7,12 +9,11 @@ import { PokemonModel } from "../models";
   styleUrls: ['./pokemon-list.component.scss'],
 })
 export class PokemonListComponent implements OnInit {
-  pokemonList: PokemonModel[] = [
-    { id: "001", name: "Charmander" },
-    { id: "002", name: "Ivysaur" },
-    { id: "003", name: "Pika" },
-  ];
-  constructor() { }
-  
-  ngOnInit(): void { }
+  public pokemonList: PokemonModel[] = [];
+  constructor(private pokemonService: PokemonService) {}
+
+  async ngOnInit() {
+    this.pokemonList = await this.pokemonService.getPokemons();
+    console.log(this.pokemonList);
+  }
 }
